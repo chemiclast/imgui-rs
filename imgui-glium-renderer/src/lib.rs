@@ -9,7 +9,7 @@ use glium::uniforms::{
     MagnifySamplerFilter, MinifySamplerFilter, Sampler, SamplerBehavior, SamplerWrapFunction,
 };
 use glium::{
-    program, uniform, vertex, Blend, DrawError, DrawParameters, IndexBuffer, Program, Rect,
+    program, vertex, Blend, DrawError, DrawParameters, IndexBuffer, Program, Rect,
     Surface, Texture2d, VertexBuffer,
 };
 use imgui::internal::RawWrapper;
@@ -248,7 +248,7 @@ impl Renderer {
                                     .slice(idx_offset..(idx_offset + count))
                                     .expect("Invalid index buffer range"),
                                 &self.program,
-                                &uniform! {
+                                &glium::uniform! {
                                     matrix: matrix,
                                     tex: Sampler(texture.texture.as_ref(), texture.sampler)
                                 },
@@ -307,7 +307,7 @@ fn upload_font_texture(
 }
 
 fn compile_default_program<F: Facade>(facade: &F) -> Result<Program, ProgramChooserCreationError> {
-    program!(
+    glium::program!(
         facade,
         400 => {
             vertex: include_str!("shader/glsl_400.vert"),
